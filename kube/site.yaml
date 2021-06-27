@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: site
+  namespace: rndir
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - image: asia.gcr.io/rndir-production/rndir.cc:0.0.1
+        imagePullPolicy: IfNotPresent
+        name: site
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 30m
+            memory: 50Mi
+    metadata:
+      labels:
+        app: site
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: site
+  namespace: rndir
+  labels:
+    app: site
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: site
