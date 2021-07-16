@@ -1,25 +1,27 @@
-apiVersion: cert-manager.io/v1alpha2
-kind: ClusterIssuer
+apiVersion: cert-manager.io/v1
+kind: Issuer 
 metadata:
   name: letsencrypt-staging
+  namespace: rndir
 spec:
   acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
     email: admin@rndir.cc
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
     - dns01:
-        clouddns:
+        cloudDNS:
           serviceAccountSecretRef:
             name: clouddns-dns01-solver-svc-acct
-            key: rndir-production-ef43f504a809.json
-          project: rndir-production
+            key: key.json
+          project: rndir-b1367ea6
 ---
-apiVersion: cert-manager.io/v1alpha2
-kind: ClusterIssuer
+apiVersion: cert-manager.io/v1
+kind: Issuer
 metadata:
   name: letsencrypt-prod
+  namespace: rndir
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
@@ -28,8 +30,8 @@ spec:
       name: letsencrypt-prod
     solvers:
     - dns01:
-        clouddns:
+        cloudDNS:
           serviceAccountSecretRef:
             name: clouddns-dns01-solver-svc-acct
-            key: rndir-production-ef43f504a809.json
-          project: rndir-production
+            key: key.json
+          project: rndir-b1367ea6

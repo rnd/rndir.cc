@@ -1,0 +1,9 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: rndir
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: cert-manager
