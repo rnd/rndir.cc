@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: photoprism
+  namespace: rndir
+spec:
+  selector:
+    matchLabels:
+      app: photoprism
+  serviceName: photoprism
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: photoprism
+    spec:
+      containers:
+      - name: photoprism
+        image: photoprism/photoprism:latest
+        ports:
+        - containerPort: 80
+          name: http
+        env:
+        - name: PHOTOPRISM_DEBUG
+          value: "true"
+        - name: PHOTOPRISM_CACHE_PATH
+          value: /assets/cache
+        - name: PHOTOPRISM_IMPORT_PATH
+          value: /assets/photos/import
+        - name: PHOTOPRISM_EXPORT_PATH
+          value: /assets/photos/export
+        - name: PHOTOPRISM_ORIGINALS_PATH
+          value: /assets/photos/originals
+        - name: PHOTOPRISM_DATABASE_DRIVER
+          value: sqlite 
+        - name: PHOTOPRISM_HTTP_HOST
+          value: "0.0.0.0"
+        - name: PHOTOPRISM_HTTP_PORT
+          value: "80"
+        - name: PHOTOPRISM_DISABLE_WEBDAV
+          value: "true"
+        envFrom:
+        - secretRef:
+            name: photoprism-secrets
+            optional: false
+        #- configMapRef:
+           #name: photoprism-configmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: photoprism
+  namespace: rndir 
+  labels:
+    app: photoprism
+spec:
+  selector:
+    app: photoprism
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
