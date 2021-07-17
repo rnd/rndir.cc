@@ -25,9 +25,9 @@ data:
   PHOTOPRISM_TEST_DRIVER: "sqlite"
   PHOTOPRISM_TEST_DSN: ".test.db"
   PHOTOPRISM_ASSETS_PATH: "/photoprism/assets"
-  PHOTOPRISM_STORAGE_PATH: "/photoprism/assets/photos"
-  PHOTOPRISM_ORIGINALS_PATH: "/photoprism/assets/photos/originals"
-  PHOTOPRISM_IMPORT_PATH: "/photoprism/assets/photos/import"
+  PHOTOPRISM_STORAGE_PATH: "/photoprism/storage"
+  PHOTOPRISM_ORIGINALS_PATH: "/photoprism/originals"
+  PHOTOPRISM_IMPORT_PATH: "/photoprism/photos/import"
   PHOTOPRISM_DISABLE_BACKUPS: "true"      # Don't backup photo and album metadata to YAML files
   PHOTOPRISM_DISABLE_WEBDAV: "true"       # Disables built-in WebDAV server
   PHOTOPRISM_DISABLE_SETTINGS: "false"    # Disables Settings in Web UI
