@@ -5,13 +5,12 @@ metadata:
   namespace: rndir
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    kubernetes.io/tls-acme: "true"
     cert-manager.io/issuer: "letsencrypt-prod"
     nginx.org/websocket-services : "photoprism"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: "512M"
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      client_max_body_size 20mb;
+    nginx.ingress.kubernetes.io/proxy-body-size: "20M"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300s"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300s"
 spec:
   tls:
   - hosts:
