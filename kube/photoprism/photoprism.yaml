@@ -26,6 +26,13 @@ spec:
             optional: false
         - configMapRef:
            name: photoprism-configmap
+        volumeMounts:
+        - mountPath: "/nfs"
+          name: photoprism-nfs
+      volumes:
+      - name: photoprism-nfs
+        persistentVolumeClaim:
+          claimName: photoprism-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -42,3 +49,17 @@ spec:
     port: 80
     targetPort: 80
     protocol: TCP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: photoprism-pvc
+  namespace: rndir
+  labels:
+    app: photoprism
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
