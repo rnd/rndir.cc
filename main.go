@@ -5,6 +5,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/rs/zerolog"
@@ -16,8 +17,10 @@ const service = "rndir.cc"
 var (
 	logger zerolog.Logger
 
-	tmpl = template.Must(template.ParseGlob("*.html"))
 	port = "8080"
+
+	tmpl       *template.Template
+	assetsRoot = "assets"
 )
 
 func init() {
@@ -30,6 +33,15 @@ func init() {
 	if serverPort := os.Getenv("SERVER_PORT"); serverPort != "" {
 		port = serverPort
 	}
+
+	tmplRoot := "templates"
+	if dir := os.Getenv("KO_DATA_PATH"); dir != "" {
+		assetsRoot = filepath.Join(dir, assetsRoot)
+		tmplRoot = filepath.Join(dir, tmplRoot)
+	}
+	tmpl = template.Must(
+		template.ParseGlob(filepath.Join(tmplRoot, "*.html")),
+	)
 }
 
 func main() {
@@ -40,7 +52,7 @@ func main() {
 		tmpl.Lookup("index.html").Execute(w, nil)
 	})
 
-	fileServer := http.FileServer(http.Dir("assets"))
+	fileServer := http.FileServer(http.Dir(assetsRoot))
 	mux.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
 
 	srv := &http.Server{
