@@ -2,12 +2,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Randy Cahyana</title>
-    <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Randy Cahyana
+    </title>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
     <style>
-        @media (max-width: 1600px) {
-            .profile>img {
-                display: none;
+        @media screen and (max-width:800px) {
+            h1 {
+                font-size: 2.8em !important
+            }
+
+            .profile {
+                text-align: left !important
             }
         }
 
@@ -15,89 +21,86 @@
             background: #272827;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: center
+        }
+
+        a {
+            text-decoration: none;
+            display: block;
+            color: inherit
         }
 
         .profile {
             position: absolute;
             color: #e0f7fa;
-            width: 40%;
             top: 50%;
             transform: translateY(-50%);
-        }
-
-        .profile>img {
-            width: 20%;
-            min-width: 200px;
-            min-height: 200px;
-            float: left;
-            border-radius: 5%;
-            box-shadow: -20px -20px 10px rgba(0, 1.3, 1.3, 1.3);
-        }
-
-        .info {
-            width: 400px;
-            display: inline-block;
-            margin-left: 30px;
+            text-align: center;
+            max-width: 1000px
         }
 
         h1 {
-            font-size: 1.8em;
-            margin-bottom: 0.2em;
+            font-size: 3.8em
         }
 
-        h1>span {
-            font-size: 0.8em;
-            font-weight: 100;
+        .email {
+            font-size: .5em;
             font-style: italic;
+            color: inherit;
+            font-weight: 50
         }
 
-        p {
-            font-size: 1.3em;
-            display: block;
+        .resume {
+            color: #fff;
+            font-weight: 700
         }
 
-        p>span {
-            font-size: 0.9em;
-            font-style: italic;
+        .social {
+            display: inline-block
+        }
+
+        ul {
+            padding: 0;
+            margin: 0
+        }
+
+        ul li {
+            text-decoration: none;
+            position: relative;
+            border: 0;
             display: inline-block;
-            margin-top: 0.7em;
+            margin: 0 .2em
         }
 
         .social-icon {
             width: 50px;
-            height: 50px;
-        }
-
-        .resume {
-            color: #ffffff;
-            font-weight: bold;
+            height: 50px
         }
     </style>
 </head>
 
 <body>
     <div class="profile">
-        <img src="assets/profile.jpg">
-        <div class="info">
-            <h1>Randy Cahyana <span>&lt;randy@rndir.cc&gt;</span></h1>
-
-            <p>
-                6 years professional <a href="assets/resume.pdf" class="resume">experience</a>
-                <span>#gopher since 2016 #cka since 2019</span>
-            </p>
-            <div class="social">
+        <h1>
+            <a href="assets/resume.pdf">Randy Cahyana
+            </a>
+            <a class="email" href="mailto:randy@rndir.cc">&lt;randy@rndir.cc&gt;
+            </a>
+        </h1>
+        <ul class="social">
+            <li>
                 <a href="https://twitter.com/_rndir">
                     <img src="assets/twitter.svg" class="social-icon">
                 </a>
+            <li>
                 <a href="https://www.linkedin.com/in/rndir/">
                     <img src="assets/linkedin.svg" class="social-icon">
                 </a>
+            <li>
                 <a href="https://github.com/rnd">
                     <img src="assets/github.svg" class="social-icon">
                 </a>
-            </div>
-        </div>
+        </ul>
     </div>
 </body>
 
