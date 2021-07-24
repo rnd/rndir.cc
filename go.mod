@@ -1,4 +1,4 @@
-module rndir.cc/site
+module rndir.cc
 
 go 1.16
 
