@@ -1,6 +1,8 @@
 package main
 
 import (
+	_ "embed"
+
 	"html/template"
 	"net"
 	"net/http"
@@ -19,8 +21,11 @@ var (
 
 	port = "8080"
 
-	tmpl       *template.Template
+	tpl        *template.Template
 	assetsRoot = "assets"
+
+	//go:embed index.html
+	indexHTML []byte
 )
 
 func init() {
@@ -33,14 +38,11 @@ func init() {
 	if serverPort := os.Getenv("SERVER_PORT"); serverPort != "" {
 		port = serverPort
 	}
-
-	tmplRoot := "templates"
 	if dir := os.Getenv("KO_DATA_PATH"); dir != "" {
 		assetsRoot = filepath.Join(dir, assetsRoot)
-		tmplRoot = filepath.Join(dir, tmplRoot)
 	}
-	tmpl = template.Must(
-		template.ParseGlob(filepath.Join(tmplRoot, "*.html")),
+	tpl = template.Must(
+		template.New("index.html").Parse(string(indexHTML)),
 	)
 }
 
@@ -49,7 +51,7 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.Lookup("index.html").Execute(w, nil)
+		tpl.ExecuteTemplate(w, "index.html", nil)
 	})
 
 	fileServer := http.FileServer(http.Dir(assetsRoot))
