@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	_ "embed"
+	"os/signal"
 
 	"html/template"
 	"net"
@@ -47,8 +49,6 @@ func init() {
 }
 
 func main() {
-	logger.Info().Msgf("starting %s on port:%s", service, port)
-
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tpl.ExecuteTemplate(w, "index.html", nil)
@@ -65,7 +65,32 @@ func main() {
 		WriteTimeout: 10 * time.Second,
 	}
 
-	if err := srv.ListenAndServe(); err != nil {
-		logger.Error().Err(err).Msgf("%s is down", service)
+	idleConnsClosed := make(chan struct{})
+	// watch for os.Interrupt signal and gracefully shutdown
+	// the server.
+	go func() {
+		const shutdownTimeout = 10 * time.Second
+
+		sigint := make(chan os.Signal, 1)
+		signal.Notify(sigint, os.Interrupt)
+		<-sigint
+
+		ctx, cancel := context.WithTimeout(
+			context.Background(),
+			shutdownTimeout,
+		)
+		defer cancel()
+
+		if err := srv.Shutdown(ctx); err != nil {
+			logger.Error().Err(err).Msg("HTTP server shutdown")
+		}
+		logger.Info().Msg("HTTP server shutdown")
+		close(idleConnsClosed)
+	}()
+
+	logger.Info().Msgf("starting %s on port:%s", service, port)
+	if err := srv.ListenAndServe(); err != http.ErrServerClosed {
+		logger.Error().Err(err).Msg("HTTP server ListenAndServe")
 	}
+	<-idleConnsClosed
 }
