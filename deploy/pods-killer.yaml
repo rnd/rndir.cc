@@ -53,4 +53,4 @@ spec:
               - "/bin/sh"
             args:
               - "-c"
-              - "kubectl get pods -A | grep Shutdown | awk '{print $1, $2}' | xargs -r kubectl delete pods -n"
+              - "kubectl get pods -A | grep Shutdown | awk '{print $1, $2}' | xargs -r -n 2 kubectl delete pods -n"
