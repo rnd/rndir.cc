@@ -17,7 +17,7 @@ import (
 const service = "rndir.cc"
 
 var (
-	ver = "devel"
+	version = "devel"
 
 	logger zerolog.Logger
 
@@ -48,7 +48,7 @@ func init() {
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		tpl.ExecuteTemplate(w, "index.html", nil)
+		tpl.ExecuteTemplate(w, "index.html", struct{ Version string }{version})
 	})
 
 	fileServer := http.FileServer(http.Dir(assetsRoot))
