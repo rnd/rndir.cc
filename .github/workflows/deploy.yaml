@@ -4,15 +4,13 @@ on:
   push:
     branches:
       - 'master'
-      - 'ci'
 
 env:
   GO_VERSION: 1.17
-  PRE_TARGET: ""
 
 jobs:
 
-  test:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -39,7 +37,6 @@ jobs:
 
       - name: Build site
         run: |
-          echo {{ env.VERSION }}
           CGO_ENABLED=0 go build -ldflags="-w -s -X main.version=$GITHUB_SHA" -o dist/site .
 
       - name: Build container image
@@ -52,6 +49,7 @@ jobs:
             ./Containerfile
 
       - name: Push image
+        id: push-container-image
         uses: redhat-actions/push-to-registry@v2
         with:
           image: ${{ steps.build-container-image.outputs.image }}
@@ -59,3 +57,14 @@ jobs:
           registry: asia.gcr.io
           username: ${{ secrets.GCR_USER }}
           password: ${{ secrets.GCR_PASSWORD }}
+
+      - name: Get GKE credentials
+        uses: google-github-actions/get-gke-credentials@main
+        with:
+          location: asia-southeast1-b
+          cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
+          credentials: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Update site deployment image
+        run: |
+          kubectl -n rndir set image deploy/site site=${{ steps.push-container-image.outputs.registry-path }}

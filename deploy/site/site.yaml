@@ -11,7 +11,7 @@ spec:
   template:
     spec:
       containers:
-      - image: ko://rndir.cc
+      - image: asia.gcr.io/rndir-b1367ea6/rndir.cc:latest
         imagePullPolicy: IfNotPresent
         name: site
         envFrom:
