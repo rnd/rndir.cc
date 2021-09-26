@@ -3,13 +3,11 @@ package main
 import (
 	"context"
 	_ "embed"
-	"os/signal"
-
 	"html/template"
 	"net"
 	"net/http"
 	"os"
-	"path/filepath"
+	"os/signal"
 	"time"
 
 	"github.com/rs/zerolog"
@@ -19,6 +17,8 @@ import (
 const service = "rndir.cc"
 
 var (
+	ver = "devel"
+
 	logger zerolog.Logger
 
 	port = "8080"
@@ -40,9 +40,6 @@ func init() {
 	if serverPort := os.Getenv("SERVER_PORT"); serverPort != "" {
 		port = serverPort
 	}
-	if dir := os.Getenv("KO_DATA_PATH"); dir != "" {
-		assetsRoot = filepath.Join(dir, assetsRoot)
-	}
 	tpl = template.Must(
 		template.New("index.html").Parse(string(indexHTML)),
 	)
@@ -55,7 +52,7 @@ func main() {
 	})
 
 	fileServer := http.FileServer(http.Dir(assetsRoot))
-	mux.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
+	mux.Handle("/a/", http.StripPrefix("/a/", fileServer))
 
 	srv := &http.Server{
 		Addr:         net.JoinHostPort("", port),
