@@ -1,0 +1,61 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'ci'
+
+env:
+  GO_VERSION: 1.17
+  PRE_TARGET: ""
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Go ${{ env.GO_VERSION }}
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache Go modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-go-
+
+      - name: Set version
+        run: |
+          echo "VERSION=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
+
+      - name: Build site
+        run: |
+          echo {{ env.VERSION }}
+          CGO_ENABLED=0 go build -ldflags="-w -s -X main.version=$GITHUB_SHA" -o dist/site .
+
+      - name: Build container image
+        id: build-container-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: rndir-b1367ea6/rndir.cc
+          tags: ${{ env.VERSION }}
+          containerfiles: |
+            ./Containerfile
+
+      - name: Push image
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-container-image.outputs.image }}
+          tags: ${{ steps.build-container-image.outputs.tags }}
+          registry: asia.gcr.io
+          username: ${{ secrets.GCR_USER }}
+          password: ${{ secrets.GCR_PASSWORD }}
