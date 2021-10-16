@@ -17,7 +17,9 @@ import (
 const service = "rndir.cc"
 
 var (
+	// will be replaced using build flag
 	version = "devel"
+	date    = "now"
 
 	logger zerolog.Logger
 
@@ -31,7 +33,29 @@ var (
 )
 
 func init() {
-	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
+	zerolog.TimestampFieldName = "timestamp"
+	zerolog.TimeFieldFormat = time.RFC3339Nano
+	zerolog.LevelFieldName = "severity"
+	zerolog.LevelFieldMarshalFunc = func(l zerolog.Level) string {
+		switch l {
+		case zerolog.TraceLevel:
+			return "DEFAULT"
+		case zerolog.DebugLevel:
+			return "DEBUG"
+		case zerolog.InfoLevel:
+			return "INFO"
+		case zerolog.WarnLevel:
+			return "WARNING"
+		case zerolog.ErrorLevel:
+			return "ERROR"
+		case zerolog.FatalLevel:
+			return "CRITICAL"
+		case zerolog.PanicLevel:
+			return "ALERT"
+		default:
+			return "DEFAULT"
+		}
+	}
 	zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
 
 	logger = zerolog.New(os.Stderr).With().
@@ -48,7 +72,10 @@ func init() {
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		tpl.ExecuteTemplate(w, "index.html", struct{ Version string }{version})
+		tpl.ExecuteTemplate(w, "index.html", struct {
+			Version string
+			Date    string
+		}{version, date})
 	})
 
 	fileServer := http.FileServer(http.Dir(assetsRoot))
