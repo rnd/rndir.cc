@@ -1,0 +1,98 @@
+<!doctype html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Randy Cahyana</title>
+  <style>
+  @import url(https://fonts.googleapis.com/css?family=Handlee);
+
+  body {
+    background: #ededed;
+    font-family: "Handlee", cursive;
+
+    background-size: 18px 18px;
+    background-image: radial-gradient(circle, #dedede 1px, rgba(0, 0, 0, 0) 1.5px);
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 8% auto;
+    align-items: center;
+  }
+
+  #date{
+    text-align: right;
+    color: #949494;
+    padding: 0.8em;
+    font-size: 14px;
+    background: #ededed;
+  }
+
+  h1 {
+    display: flex;
+    color: #2e2e2e;
+    margin-bottom: 5px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .email {
+    color: #949494;
+    font-size: 18px;
+    padding: 0 50px 15px 50px;
+    border-bottom: dashed 2px;
+  }
+
+  ul {
+    list-style: none;
+    margin-top: 1.5em;
+  }
+
+  ul li:before {
+    content: '✓';
+    color: #37cd5a;
+    margin-right: 0.5em;
+  }
+
+  ul li {
+    padding-bottom: 0.5em;
+  }
+
+  ul li a {
+    color: rgba(51, 51, 51, 0.7);
+  }
+
+  </style>
+  <script>
+  function loadDate() {
+    document.getElementById("date").
+      textContent = new Date().toLocaleDateString();
+  }
+  </script>
+</head>
+
+<body onload="loadDate()">
+  <div id="date">...</div>
+  <div class="profile">
+    <h1>Randy Cahyana</h1>
+    <a href="mailto:randy@randir.cc" class="email">randy@rndir.cc</a>
+    <ul>
+      <li>
+        <a href="resume.pdf">resume</a>
+      </li>
+      <li>
+        <a href="https://github.com/rnd">github.com/rnd</a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/randy-cahyana">linkedin.com/in/randy-cahyana</a>
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>
