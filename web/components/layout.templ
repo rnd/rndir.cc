@@ -1,0 +1,46 @@
+package components
+
+templ header(title string) {
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
+		<title>{ title }</title>
+        <link rel="stylesheet" href="/static/css/tailwind.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		<style>
+            @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+
+            body {
+                    background: #FDFFFC;
+                    font-family: "Inconsolata", monospace;
+
+                    background-size: 18px 18px;
+                    background-image: radial-gradient(circle, #dedede 1px, rgba(0, 0, 0, 0) 1.5px);
+            }
+        </style>
+
+        <!-- favicon -->
+        <link rel="shortcut icon" href="/static/favicon/favicon.ico"></link>
+        <link rel="apple-touch-icon" href="/static/favicon/apple-touch-icon.png"></link>
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png"></link>
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png"></link>
+	</head>
+}
+
+templ footer() {
+	<footer>
+        <!--
+        <img src="/static/momon.png" alt="momon-sploot" class="absolute bottom-0 left-0 m-4 max-w-[25%] md:max-w-[12.5%]"></img>
+        -->
+	</footer>
+}
+
+templ Layout(name string) {
+	<html>
+		@header(name)
+        <body class="flex flex-col items-center justify-center min-h-screen space-y-4 relative">
+			{ children... }
+            @footer()
+		</body>
+	</html>
+}

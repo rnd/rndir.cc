@@ -1,0 +1,224 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{fontspec}
+
+% Font
+\setmonofont{Roboto}
+
+%  Margins
+\addtolength{\oddsidemargin}{-1.2cm}
+\addtolength{\evensidemargin}{-1.2cm}
+\addtolength{\textwidth}{2.5cm}
+\addtolength{\topmargin}{-1.5cm}
+\addtolength{\textheight}{2cm}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0cm}
+
+% Sections formatting
+\titleformat{\section}{
+    \vspace{-7pt}\scshape\raggedright\large
+}{}{0cm}{}[\color{black}\titlerule \vspace{-3pt}]
+
+% Custom commands
+\newcommand{\resumeItem}[2]{
+\item\small{
+        \textbf{#1}{: #2 \vspace{-2pt}}
+    }
+}
+
+\newcommand{\resumeSubheading}[4]{
+\vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & #2 \\
+        \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+% Content
+\begin{document}
+
+\ttfamily
+
+%----------HEADING-----------------
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+    \textbf{\href{http://rndir.cc/}{\Large Randy Cahyana}} & Email : \href{mailto:randy@rndir.cc}{randy@rndir.cc}\\
+    \href{https://randy@rndir.cc/}{https://rndir.cc} & Mobile : +(62) 821-1151-2244 \\
+\end{tabular*}
+
+%-----------EXPERIENCE-----------------
+\section{Experience}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+{Gotu (formerly TempMee)}{(Remote) Florida, USA}
+{Senior Software Engineer -- Go, Kubernetes }{March 2023 - March 2024}
+\resumeItemListStart
+\resumeItem {Development and System Design}
+{
+    Ported critical services (offer feed and payment) to Go from
+    legacy monolith architecture using NATS and Protobuf. Reduced P90 latency to approximately 7 times faster.
+    Authored internal Go modules, and maintained Go version update on all services.
+}
+\resumeItem{Infrastructure}
+{
+    Introduced and managed new development and staging enviroment using amazon EKS,
+    codebuild, and codepipeline using terraform. Integrate secret store utilizing
+    AWS secret manager using external secrets operator.
+    And last, performed cluster update and maintenance.
+}
+\resumeItem{Integrations}
+{
+    Added persistent storage on NATS to support messages redelivery for mission
+    critical services. Introduced container based integrations tests for new services.
+}
+\resumeItem{Monitoring and Reliability}
+{
+    Introduced alerts, logging, correlation id for better error tracing and
+    observability. Created meaningful dashboard for daily observability and high
+    level systems overview.
+}
+\resumeItemListEnd
+
+\resumeSubheading
+{Dropezy (YC W22)}{(Remote) Jakarta, Indonesia}
+{Senior Software Engineer -- Go, gRPC, Kubernetes}{February 2022 - November 2022}
+\resumeItemListStart
+\resumeItem {Development Environment}
+{
+    Setup agnostic local development environment to speed up on-boarding, and ensure developers can test their code locally with identical
+    configurations to live environment.
+}
+\resumeItem {Services}
+{
+    Architected and built storefront backend and enterprise management system, along with its http callbacks using Go, gRPC, and gRPC-gateway.
+}
+\resumeItem {Integrations}
+{
+    Integrated inventory, payment, promotion, and logistic system to each respected service domain.
+}
+\resumeItem {Database}
+{
+    Designed document database model for mongodb and conducted data migration from old storefront system.
+}
+\resumeItem{CI/CD}
+{
+    Setup and maintain github actions workflows with a set of code analysis, unit and integrations tests rules that enabled our team
+    to release features quickly on both pre-production and production environment.
+}
+\resumeItem{Orchestration}
+{
+    Setup managed kubernetes autopilot clusters on GCP for pre-production and production environment for all services.
+}
+\resumeItem{Monitoring}
+{
+    Configured tracer and correlated logs for each individual service on datadog.
+}
+\resumeItem{Management}
+{
+    Lead remote backend engineering team of 5 to collaborate with mobile developers and product team. Also conducted tech interview session for
+    backend engineering recruitment pipeline and early mobile developer engineers.
+}
+\resumeItemListEnd
+
+\resumeSubheading
+{Lbry}{(Remote) United States}
+{Software Engineer -- Go}{August 2021 - December 2021}
+\resumeItemListStart
+\resumeItem{Odysee.com}
+{Managed file upload endpoint and added TUS based resumable file upload mechanism to Odysee backend server.}
+\resumeItem{Stream Server}
+{Worked on the new Go based RMTP stream server with its own transcoder and encoder.}
+\resumeItemListEnd
+
+\resumeSubheading
+{Brankas}{(Remote) Jakarta, Indonesia}
+{Systems Developer -- Go, gRPC, Kubernetes}{Dec 2016 - March 2021}
+\resumeItemListStart
+\resumeItem {chromedp}
+{A web driver in Go that utilize Chrome DevTools Protocol under the hood without external dependencies. Wrote the initial unit tests, examples, and patches on the early release.}
+\resumeItem {Bank Integrations}
+{Wrote the initial bank integration package for Banks in South East Asia to collect data and automate interactions on bank websites and its API using various technology to power core products development. }
+\resumeItem{Web}
+{Developed Brankas Enterprise dashboard using VueJS, TypeScript, and grpc-web as the communication protocol. Also managed webpack build scripts for this project}
+\resumeItem{Infra}
+{Managing CI/CD pipeline, various service deployments on Kubernetes, and monitoring tools.}
+\resumeItem{OAuth2.0}
+{Setup and maintain OAuth2.0 server, internal docs, and service deployment to be used on company wide services. Involved on initial identity provider that act as resource owner storage.}
+\resumeItem{Client Works}
+{Helped one of the biggest state-owned bank in Indonesia to build their OpenAPI and Big Data projects. Deployed kafka on on-premise Kubernetes, wrote ETL pipeline from various data sources including IBM AS/400 to elasticsearch, and setup monitoring dashboard using Grafana}
+\resumeItemListEnd
+
+\resumeSubheading
+{PT Inti Solusi Tekindo - IONS Tech}{Jakarta, Indonesia}
+{Full Stack Developer -- PHP, Angular 1.0,  NodeJS}{Aug 2014 - Oct 2016}
+\resumeItemListStart
+\resumeItem{IABEE}
+{A national accreditation and evaluation platform for engineering institution in Indonesia. \newline Built using PHP and NoSQL database on the backend and angular1.0 on the frontend. Deployed on AWS}
+\resumeItem{HRIS}
+{Worked on initial design and development for authentication, attendance, payroll module for local University in Indonesia. Deployed on-premise on virtualized server on top  vSphere ESXi}
+\resumeItem{Auth}
+{Designed and developed internal authentication and authorization library for internal and client projects. Written on native PHP and tested and used on laravel projects and bundled as composer project.}
+\resumeItemListEnd
+
+\resumeSubheading
+{PT Altavindo}{Jakarta, Indonesia}
+{Backend Developer -- Java, JSP, Oracle}{Oct 2013 - Jun 2014}
+\resumeItemListStart
+\resumeItem{pegipegi.com}
+{Developed and maintained pegipegi.com hotel systems, including search API, intranet and extranet systems to connect with external hotel inventory management APIs}
+\resumeItemListEnd
+\resumeSubHeadingListEnd
+
+%--------PROGRAMMING SKILLS------------
+\section{Programming Languages}
+\resumeSubHeadingListStart
+    \item{
+            \textbf{Familiar}{: JavaScript, TypeScript, Python, Nix}
+            \hfill
+            \textbf{Comfortable}{: Java, Shell, Go}
+        }
+        \resumeSubHeadingListEnd
+
+        \section{Tools}
+        \resumeSubHeadingListStart
+        \resumeItem{Linux}
+        {Using Linux since 2015 as primary OS.}
+        \resumeItem{Git}
+        {Experienced with branches, rebasing, resolving conflicts, etc}
+        \resumeItem{Container}
+        {Experienced with container management tools such as docker and podman, and kubernetes for the container-orchestration system.}
+        \resumeSubHeadingListEnd
+
+        \section{Skills}
+        \resumeSubHeadingListStart
+        \resumeItem{Infrastructure}
+        {Experienced at creating and managing CI/CD pipelines, and Certified Kubernetes Administrator since 2019}
+        \resumeItem{Teamwork}
+        {Work remotely with distributed teams accross multiple timezones. Help organizing local Golang meetup in Indonesia.}
+        \resumeItem{Languages}
+        {Native in Bahasa Indonesia and proficient in English.}
+        \resumeSubHeadingListEnd
+
+        %-------------------------------------------
+  \end{document}

@@ -1,0 +1,29 @@
+package home
+
+import "github.com/rnd/site/web/components"
+import "strconv"
+
+templ home() {
+	@components.Layout("Randy Cahyana") {
+        <h1 class="text-4xl font-bold">Randy Cahyana</h1>
+        <div class="flex text-2xl py-2">
+            <a href="https://github.com/rnd" target="_blank" class="px-4 py-2">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="mailto:randy@rndir.cc" class="px-4 py-2">
+                <i class="fa-regular fa-envelope"></i>
+            </a>
+            <a href="/static/resume.pdf" target="_blank" class="px-4 py-2">
+                <i class="fa-regular fa-file-pdf"></i>
+            </a>
+        </div>
+	}
+}
+
+templ errorP(statusCode int, title string) {
+	@components.Layout(title) {
+		<div class="profile">
+			<h1>{ strconv.Itoa(statusCode)  + " - " +  title }</h1>
+		</div>
+	}
+}

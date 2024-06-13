@@ -1,1 +1,8 @@
-.build
+node_modules
+
+# environment file
+env/config
+
+# build directory
+build
+result

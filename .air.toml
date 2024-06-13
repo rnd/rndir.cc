@@ -1,0 +1,18 @@
+root = "."
+tmp_dir = "build"
+
+[build]
+pre_cmd = ["templ generate", "npm run build"]
+cmd = "make server"
+bin = "build/main"
+full_bin = "make run"
+include_ext = ["go", "templ", "html"]
+exclude_regex = ["_test\\.go", ".*_templ.go"]
+
+[log]
+time = false
+main_only = false
+
+[screen]
+clear_on_rebuild = true
+keep_scroll = true
