@@ -28,9 +28,9 @@ templ header(title string) {
 }
 
 templ footer(name, storePath string) {
-    <footer class="md:w-9/12 text-sm text-gray-400 flex flex-col justify-between items-center">
+    <footer class="text-sm text-gray-400 flex flex-col justify-between items-center px-4">
         <div class="font-bold">© 2024 Randy Cahyana.</div>
-        <div>Served by <span class="italic">{ storePath }</span></div>
+        <div class="mt-2 hidden sm:block">Served by <span class="italic">{ storePath }</span></div>
     </footer>
 }
 

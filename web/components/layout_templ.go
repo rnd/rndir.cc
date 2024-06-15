@@ -60,14 +60,14 @@ func footer(name, storePath string) templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<footer class=\"md:w-9/12 text-sm text-gray-400 flex flex-col justify-between items-center\"><div class=\"font-bold\">© 2024 Randy Cahyana.</div><div>Served by <span class=\"italic\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<footer class=\"text-sm text-gray-400 flex flex-col justify-between items-center px-4\"><div class=\"font-bold\">© 2024 Randy Cahyana.</div><div class=\"mt-2 hidden sm:block\">Served by <span class=\"italic\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(storePath)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/components/layout.templ`, Line: 33, Col: 55}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/components/layout.templ`, Line: 33, Col: 84}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
