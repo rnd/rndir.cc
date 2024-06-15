@@ -20,31 +20,33 @@ const (
 
 type Server struct {
 	*http.Server
+
+	cfg config.ServerCfg
 }
 
 func New(cfg config.ServerCfg) *Server {
 	return &Server{
-		&http.Server{
-			Handler:      mux(),
+		Server: &http.Server{
 			Addr:         net.JoinHostPort(cfg.Host, cfg.Port),
 			ReadTimeout:  defaultIdleTimeout,
 			WriteTimeout: defaultWriteTimeout,
 			IdleTimeout:  defaultIdleTimeout,
 		},
+		cfg: cfg,
 	}
 }
 
-func mux() *http.ServeMux {
+func (s *Server) register() {
 	mux := http.NewServeMux()
-	home.NewHandler(mux)
-	return mux
+	home.Register(s.cfg, mux)
+	s.Handler = mux
 }
 
 // Run runs server processes if only all dependencies are resolved.
-func (s *Server) Run(ctx context.Context) error {
-	logging.FromContext(ctx).
-		InfoContext(ctx, "starting server", "url", s.Addr)
+func (s *Server) Run() error {
+	logging.New().Info("starting server", "url", s.Addr)
 
+	s.register()
 	if err := s.ListenAndServe(); err != nil {
 		if !errors.Is(err, http.ErrServerClosed) {
 			return err

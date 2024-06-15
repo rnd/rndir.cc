@@ -27,20 +27,19 @@ templ header(title string) {
 	</head>
 }
 
-templ footer() {
-	<footer>
-        <!--
-        <img src="/static/momon.png" alt="momon-sploot" class="absolute bottom-0 left-0 m-4 max-w-[25%] md:max-w-[12.5%]"></img>
-        -->
-	</footer>
+templ footer(name, storePath string) {
+    <footer class="md:w-9/12 text-sm text-gray-400 flex flex-col justify-between items-center">
+        <div class="font-bold">© 2024 Randy Cahyana.</div>
+        <div>Served by <span class="italic">{ storePath }</span></div>
+    </footer>
 }
 
-templ Layout(name string) {
+templ Layout(name, storePath string) {
 	<html>
 		@header(name)
         <body class="flex flex-col items-center justify-center min-h-screen space-y-4 relative">
 			{ children... }
-            @footer()
+            @footer(name, storePath)
 		</body>
 	</html>
 }

@@ -3,8 +3,8 @@ package home
 import "github.com/rnd/site/web/components"
 import "strconv"
 
-templ home() {
-	@components.Layout("Randy Cahyana") {
+templ home(storePath string) {
+	@components.Layout("Randy Cahyana", storePath) {
         <h1 class="text-4xl font-bold">Randy Cahyana</h1>
         <div class="flex text-2xl py-2">
             <a href="https://github.com/rnd" target="_blank" class="px-4 py-2">
@@ -20,8 +20,8 @@ templ home() {
 	}
 }
 
-templ errorP(statusCode int, title string) {
-	@components.Layout(title) {
+templ errorP(storePath string, statusCode int, title string) {
+	@components.Layout(title, storePath) {
 		<div class="profile">
 			<h1>{ strconv.Itoa(statusCode)  + " - " +  title }</h1>
 		</div>

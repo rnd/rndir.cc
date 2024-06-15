@@ -23,12 +23,6 @@ func main() {
 	}
 	cfg.Server.Version = version
 
-	ctx := logging.WithContext(
-		context.Background(), logger,
-		slog.String("service", cfg.Server.Name),
-		slog.String("version", cfg.Server.Version),
-	)
-
 	srv := server.New(cfg.Server)
 
 	idleConnsClosed := make(chan struct{})
@@ -41,17 +35,19 @@ func main() {
 		signal.Notify(sigint, os.Interrupt)
 		<-sigint
 
-		ctx, cancel := context.WithTimeout(ctx, shutdownTimeout)
+		ctx, cancel := context.WithTimeout(
+			context.Background(), shutdownTimeout,
+		)
 		defer cancel()
 
 		if err := srv.Shutdown(ctx); err != nil {
-			logger.FatalContext(ctx, "failed to shutdown server", slog.Any("err", err))
+			logger.Fatal("failed to shutdown server", slog.Any("err", err))
 		}
 		close(idleConnsClosed)
 	}()
 
-	if err := srv.Run(ctx); err != nil {
-		logger.FatalContext(ctx, "server run error", slog.Any("err", err))
+	if err := srv.Run(); err != nil {
+		logger.Fatal("server run error", slog.Any("err", err))
 	}
 
 	<-idleConnsClosed
