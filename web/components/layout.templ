@@ -5,8 +5,8 @@ templ header(title string) {
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width,initial-scale=1"/>
 		<title>{ title }</title>
-        <link rel="stylesheet" href="/static/css/tailwind.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		<link rel="stylesheet" href="/static/css/tailwind.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 		<style>
             @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
 
@@ -18,28 +18,27 @@ templ header(title string) {
                     background-image: radial-gradient(circle, #dedede 1px, rgba(0, 0, 0, 0) 1.5px);
             }
         </style>
-
-        <!-- favicon -->
-        <link rel="shortcut icon" href="/static/favicon/favicon.ico"></link>
-        <link rel="apple-touch-icon" href="/static/favicon/apple-touch-icon.png"></link>
-        <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png"></link>
-        <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png"></link>
+		<!-- favicon -->
+		<link rel="shortcut icon" href="/static/favicon/favicon.ico"/>
+		<link rel="apple-touch-icon" href="/static/favicon/apple-touch-icon.png"/>
+		<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png"/>
+		<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png"/>
 	</head>
 }
 
 templ footer(name, storePath string) {
-    <footer class="text-sm text-gray-400 flex flex-col justify-between items-center px-4">
-        <div class="font-bold">© 2024 Randy Cahyana.</div>
-        <div class="mt-2 hidden sm:block">Served by <span class="italic">{ storePath }</span></div>
-    </footer>
+	<footer class="text-sm text-gray-400 flex flex-col justify-between items-center px-4">
+		<div class="font-bold">© 2024 Randy Cahyana.</div>
+		<div class="mt-2 hidden sm:block">Served by <span class="italic">{ storePath }</span></div>
+	</footer>
 }
 
 templ Layout(name, storePath string) {
 	<html>
 		@header(name)
-        <body class="flex flex-col items-center justify-center min-h-screen space-y-4 relative">
+		<body class="flex flex-col items-center justify-center min-h-screen space-y-4 relative">
 			{ children... }
-            @footer(name, storePath)
+			@footer(name, storePath)
 		</body>
 	</html>
 }
